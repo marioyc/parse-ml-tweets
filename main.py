@@ -15,9 +15,13 @@ USER_SCREEN_NAME = "StatMLPapers"
 #user = api.GetUser(screen_name=USER_SCREEN_NAME)
 #print(user.name + " : " + user.description + "\n")
 
+def check(status):
+    return status.favorite_count + status.retweet_count >= 10
+
 statuses = api.GetUserTimeline(screen_name=USER_SCREEN_NAME)
 for s in statuses:
-    print(s.created_at, s.text, s.favorite_count, s.retweet_count)
+    if check(s):
+        print(s.created_at, s.text, s.favorite_count, s.retweet_count)
 
 for it in range(0,5):
     print("")
@@ -30,4 +34,5 @@ for it in range(0,5):
         statuses = statuses[1:]
 
     for s in statuses:
-        print(s.created_at, s.text, s.favorite_count, s.retweet_count)
+        if check(s):
+            print(s.created_at, s.text, s.favorite_count, s.retweet_count)
